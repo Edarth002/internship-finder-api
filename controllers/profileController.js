@@ -17,7 +17,7 @@ export async function profileUpdate(req, res) {
       return res.status(200).json({ message: "User does not exist" });
     }
 
-    //This returns the profile if found
+    //This returns the profile if found, this flow is abnormal but ensures, error is controlled in special cases
     if (
       existingUser.fullname &&
       existingUser.number &&
@@ -48,6 +48,34 @@ export async function profileUpdate(req, res) {
 
     //Return profile to the frontend after it has been created
     res.status(201).json({ message: "Profile Updated", profile: newProfile });
+  } catch (error) {
+    console.log("Profile could not be added because: ", error);
+    res.status(501).json({ message: "Internal server error" });
+  }
+}
+
+//Get User Profile so a check does not need to be conducted every time, This is the normal flow for getting profile
+export async function getProfile(req, res) {
+  const userId = req.user.userId;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        fullname: true,
+        number: true,
+        age: true,
+        department: true,
+        school: true,
+        industry: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    res.status(201).json({ profile: user });
   } catch (error) {
     console.log("Profile could not be fetched because: ", error);
     res.status(501).json({ message: "Internal server error" });
