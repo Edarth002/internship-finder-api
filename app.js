@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoute from "./routes/authRoute.js";
+import profileRoute from "./routes/profileRoute.js";
 
 dotenv.config();
 const app = express();
@@ -13,6 +14,9 @@ app.use(express.json());
 
 //Routes to register or login
 app.use("/api/auth", authRoute);
+
+//Route to update profile
+app.use("api/profile", profileRoute);
 
 app.get("/", (req, res) => {
   res.send("Internship Finder API is running 🎯");
