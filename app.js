@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoute from "./routes/authRoute.js";
 import profileRoute from "./routes/profileRoute.js";
+import applicationRoute from "./routes/applicationRoute.js";
 
 dotenv.config();
 const app = express();
@@ -16,7 +17,10 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 
 //Route to update profile
-app.use("api/profile", profileRoute);
+app.use("/api/profile", profileRoute);
+
+//Route to applications in order of crud(create, read/get, update, delete) operations
+app.use("/api/applications", applicationRoute);
 
 app.get("/", (req, res) => {
   res.send("Internship Finder API is running 🎯");
