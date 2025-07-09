@@ -62,3 +62,34 @@ export async function getApplications(req, res) {
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
+
+//It may be necessary to edit applications especially if user has been accepted or rejected, this code takes care of this
+
+export async function updateApplications(req, res) {
+  const userId = req.user.userId;
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const application = await prisma.application.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!application || application.userId !== userId) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+
+    const updatedApplication = await prisma.application.update({
+      where: { id: parseInt(id) },
+      data: status,
+    });
+
+    res.status(200).json({
+      message: "Application updated",
+      application: updatedApplication,
+    });
+  } catch (error) {
+    console.error("Update Status Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
