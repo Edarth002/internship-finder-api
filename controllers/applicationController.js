@@ -93,3 +93,31 @@ export async function updateApplications(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
+
+//After an application has been rejected, user might intend to delete it, this part handles deletion
+
+export async function deleteApplication(req, res) {
+  const userId = req.user.userId;
+  const { id } = req.params;
+
+  try {
+    const application = await prisma.application.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+
+    const deletedApplication = await prisma.application.delete({
+      where: { id: parseInt(id) },
+    });
+
+    res
+      .status(200)
+      .json({ message: "Application has been successfully deleted" });
+  } catch (error) {
+    console.log("Delete Application Error: ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
