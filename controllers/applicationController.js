@@ -65,7 +65,7 @@ export async function getApplications(req, res) {
 
 //It may be necessary to edit applications especially if user has been accepted or rejected, this code takes care of this
 
-export async function updateApplications(req, res) {
+export async function updateApplication(req, res) {
   const userId = req.user.userId;
   const { id } = req.params;
   const { status } = req.body;
