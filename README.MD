@@ -124,7 +124,6 @@ $ npm install
 
 ## 📊 Future Improvements
 
-* Internship map view with Leaflet or Mapbox
 * User email notifications
 
 ---
