@@ -16,6 +16,8 @@ model User {
     department String?
     school String?
     industry String?
+    longitude Decimal?
+    latitude Decimal?
     applications Application[]
 }
 
