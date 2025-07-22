@@ -1,4 +1,4 @@
-import nigeriaStateCoordinates from "../utils/coordinates";
+import nigeriaStateCoordinates from "../utils/coordinates.js";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
