@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export const verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1]; // Bearer <token>
 
   if (!token) {
@@ -16,3 +16,5 @@ export const verifyToken = (req, res, next) => {
     return res.status(403).json({ message: "Forbidden - Invalid token" });
   }
 };
+
+export default verifyToken;
