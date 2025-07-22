@@ -1,5 +1,7 @@
 import { matchJobs } from "../utils/matchJobs.js";
-import prisma from "../prisma/client.js";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export async function getNearbyJobs(req, res) {
   try {
@@ -15,11 +17,9 @@ export async function getNearbyJobs(req, res) {
     });
 
     if (!user || !user.latitude || !user.longitude) {
-      return res
-        .status(400)
-        .json({
-          message: "User location not set. Please update your profile.",
-        });
+      return res.status(400).json({
+        message: "User location not set. Please update your profile.",
+      });
     }
 
     // You’ll build this to get job listings

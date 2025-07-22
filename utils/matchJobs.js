@@ -1,4 +1,4 @@
-import haversineFunction from "./haversine";
+import haversineFunction from "./haversine.js";
 
 export function matchJobs(lat1, lon1, jobs, maxDistance = 50000) {
   return jobs.filter((job) => {

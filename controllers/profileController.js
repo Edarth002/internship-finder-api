@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// Update user profile and set lat/lon based on state
 export async function profileUpdate(req, res) {
   const userId = req.user.userId;
   const { fullname, number, age, department, school, industry, state } =
@@ -57,6 +58,40 @@ export async function profileUpdate(req, res) {
     res.status(201).json({ message: "Profile updated", profile: newProfile });
   } catch (error) {
     console.log("Profile update error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+// Get user profile by token-authenticated userId
+export async function getProfile(req, res) {
+  const userId = req.user.userId;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        fullname: true,
+        number: true,
+        age: true,
+        department: true,
+        school: true,
+        industry: true,
+        state: true,
+        latitude: true,
+        longitude: true,
+        createdAt: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User profile not found" });
+    }
+
+    res.status(200).json({ profile: user });
+  } catch (error) {
+    console.log("Get profile error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
