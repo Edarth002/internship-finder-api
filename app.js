@@ -28,7 +28,7 @@ app.use("/api/nearbyjobs", nearbyjobsRoute);
 
 //Default/Home Route
 app.get("/", (req, res) => {
-  res.send("Internship Finder API is running 🎯");
+  res.send("Internship Finder API is running");
 });
 
 app.listen(PORT, () => {
