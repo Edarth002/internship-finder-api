@@ -1,3 +1,4 @@
+import allJobs from "../utils/jobAPI.js";
 import { matchJobs } from "../utils/matchJobs.js";
 import { PrismaClient } from "@prisma/client";
 
@@ -23,7 +24,7 @@ export async function getNearbyJobs(req, res) {
     }
 
     //You’ll build this to get job listings
-    const jobs = await getAllJobsFromAPI();
+    const jobs = await allJobs();
 
     const nearbyJobs = matchJobs(
       parseFloat(user.latitude),

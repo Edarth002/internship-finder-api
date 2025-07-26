@@ -1,4 +1,4 @@
-const jobs = [
+const allJobs = [
   {
     id: 1,
     title: "Frontend Developer Intern",
@@ -145,3 +145,5 @@ const jobs = [
     longitude: 7.4951,
   },
 ];
+
+export default allJobs;
