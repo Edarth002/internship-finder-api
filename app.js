@@ -17,7 +17,7 @@ app.use(express.json());
 //Routes to register or login
 app.use("/api/auth", authRoute);
 
-//Route to update profile
+//Route to create and get profile
 app.use("/api/profile", profileRoute);
 
 //Route to applications in order of crud(create, read/get, update, delete) operations

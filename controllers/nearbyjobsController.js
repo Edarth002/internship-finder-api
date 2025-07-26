@@ -22,8 +22,8 @@ export async function getNearbyJobs(req, res) {
       });
     }
 
-    // You’ll build this to get job listings
-    // const jobs = await getAllJobsFromAPI();
+    //You’ll build this to get job listings
+    const jobs = await getAllJobsFromAPI();
 
     const nearbyJobs = matchJobs(
       parseFloat(user.latitude),
