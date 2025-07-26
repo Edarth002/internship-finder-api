@@ -81,7 +81,6 @@ export async function getProfile(req, res) {
         state: true,
         latitude: true,
         longitude: true,
-        createdAt: true,
       },
     });
 
