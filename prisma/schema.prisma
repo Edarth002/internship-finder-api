@@ -16,6 +16,7 @@ model User {
     age Int?
     department String?
     school String?
+    state String?
     industry String?
     longitude Decimal?
     latitude Decimal?
