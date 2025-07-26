@@ -18,7 +18,7 @@ router.post("/", verifyToken, createApplication);
 router.get("/", verifyToken, getApplications);
 
 //Route to update applications
-router.patch("/:id/status", verifyToken, updateApplication);
+router.patch("/:id", verifyToken, updateApplication);
 
 //Route to delete applications
 router.delete("/:id", verifyToken, deleteApplication);

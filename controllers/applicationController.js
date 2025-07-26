@@ -14,7 +14,7 @@ export async function createApplication(req, res) {
 
   try {
     if (existing) {
-      res
+      return res
         .status(400)
         .json({ message: "You have applied for this position already" });
     }
@@ -81,7 +81,7 @@ export async function updateApplication(req, res) {
 
     const updatedApplication = await prisma.application.update({
       where: { id: parseInt(id) },
-      data: status,
+      data: { status },
     });
 
     res.status(200).json({
