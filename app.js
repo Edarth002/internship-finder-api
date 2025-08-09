@@ -31,6 +31,7 @@ app.get("/", (req, res) => {
   res.send("Internship Finder API is running");
 });
 
-app.listen(PORT, () => {
-  console.log("App is up and running");
+app.listen(PORT, "0.0.0.0", async () => {
+  console.log(`Server running on port ${PORT}`);
+  await connectDB();
 });
