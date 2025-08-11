@@ -1,5 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import fs, { writeFileSync } from "fs";
 
-const prisma = new PrismaClient()
+if (process.env.CA_CERTIFICATE) {
+  const caPath = "/temp/ca.pem";
+  writeFileSync(caPath, process.env.CA_CERTIFICATE);
+  process.env.NODE_EXTRA_CA_CERTS = caPath;
+}
 
-export default prisma
+const prisma = new PrismaClient();
+
+export default prisma;
