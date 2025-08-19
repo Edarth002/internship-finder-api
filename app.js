@@ -10,27 +10,40 @@ dotenv.config();
 const app = express();
 const PORT = 3000;
 
-//middleware to handle application/json and
-app.use(cors());
+// --- CORS configuration for local and deployed frontend ---
+const allowedOrigins = [
+  "http://localhost:3000",             
+  "https://internship-finder.vercel.app"
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, 
+  })
+);
+
+// Middleware to handle JSON
 app.use(express.json());
 
-//Routes to register or login
+// Routes
 app.use("/api/auth", authRoute);
-
-//Route to create and get profile
 app.use("/api/profile", profileRoute);
-
-//Route to applications in order of crud(create, read/get, update, delete) operations
 app.use("/api/applications", applicationRoute);
-
-//Route to get nearbyjobs
 app.use("/api/nearbyjobs", nearbyjobsRoute);
 
-//Default/Home Route
+// Default/Home Route
 app.get("/", (req, res) => {
   res.send("Internship Finder API is running");
 });
 
+// Start server
 app.listen(PORT, "0.0.0.0", async () => {
   console.log(`Server running on port ${PORT}`);
 });
